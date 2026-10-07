@@ -95,6 +95,15 @@ sup.n22{font-size:.36em;vertical-align:top;position:relative;top:.12em;margin-le
 .is-active .takt .tw{opacity:1;transform:none}
 .takt.on-light{color:var(--ink)}
 
+
+/* ripple: each beat bobs with a phase offset, so the strip ripples like a surface */
+.takt .b{display:block;animation:bob 2.8s ease-in-out infinite;animation-delay:calc(var(--i) * -0.17s)}
+@keyframes bob{0%,100%{transform:translateY(calc(var(--amp) * -1))}50%{transform:translateY(var(--amp))}}
+.slide:not(.is-active) .takt .b{animation-play-state:paused}
+/* slow rise of the whole strip */
+.rise-slow{transform:translateY(420px);transition:transform 9s cubic-bezier(.15,.55,.25,1) .2s}
+.is-active .rise-slow{transform:none}
+
 /* table rows */
 .rows>div{display:grid;gap:32px;padding:22px 0;border-top:1.5px solid currentColor;align-items:baseline}
 .rows{border-bottom:1.5px solid currentColor}
@@ -143,7 +152,7 @@ sup.n22{font-size:.36em;vertical-align:top;position:relative;top:.12em;margin-le
   <div class="top"><span>Prvek 1 · Takt</span><span class="n">03 / 09</span></div>
   <h2 class="d2 rise" style="padding-top:40px">Jeden takt.<br><span class="mk" style="--d:1.6s">Celá posádka.</span></h2>
   <div class="fill end" style="gap:36px">
-    <div class="takt" data-n="34" data-every="10" data-h="110" role="img" aria-label="Pásek z lomítek a dvojek, který končí číslem 22" style="--td:.4s"></div>
+    <div class="rise-slow"><div class="takt" data-n="34" data-every="10" data-h="110" data-amp="14" role="img" aria-label="Pásek z lomítek a dvojek, který končí číslem 22, pomalu stoupá a vlní se" style="--td:.4s"></div></div>
     <p class="body rise" data-d="2" style="max-width:1100px;color:var(--gd)">Lomítka jsou údery vesel v jednom rytmu, dvojky jsou míra. Pásek běží přes každý formát a končí 22. Funguje i pro toho, kdo mýtus nezná.</p>
   </div>
   <div class="src"><span><b>Ze zadání</b> 06 bod 02: takt padesáti vesel, opakovaný modul · 05 Nosný prvek</span><span>Vyvinuto ze stupnice „2₂₂₂₂22“</span></div>
@@ -280,14 +289,19 @@ sup.n22{font-size:.36em;vertical-align:top;position:relative;top:.12em;margin-le
   document.querySelectorAll('.takt').forEach(function(el){
     var n = +(el.dataset.n || 30), every = +(el.dataset.every || 9), h = +(el.dataset.h || 60);
     el.style.setProperty('--h', h + 'px');
+    el.style.setProperty('--amp', (+(el.dataset.amp) || h * 0.09) + 'px');
     for (var i = 0; i < n; i++){
       var two = (i % every === 2) || i >= n - 2;
+      var b = document.createElement('span');
+      b.className = 'b';
+      b.style.setProperty('--i', i);
+      b.setAttribute('aria-hidden', 'true');
       var e = document.createElement('span');
       e.className = two ? 'tw' : 'st';
       if (two) e.textContent = '2';
       e.style.setProperty('--i', i);
-      e.setAttribute('aria-hidden', 'true');
-      el.appendChild(e);
+      b.appendChild(e);
+      el.appendChild(b);
     }
   });
 
