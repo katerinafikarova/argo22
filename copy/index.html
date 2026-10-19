@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Argo22 · Měřítko copy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#F3F2EC; --surface:#FFFFFF; --ink:#0E0E0D; --muted:#5E5E59; --line:#0E0E0D; --soft:#D9D8D2;
+  --yel:#F5F500; --on-yel:#0E0E0D; --warn:#B3261E;
+  --sans:'Geist','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --mono:'Geist Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#111110;--surface:#1B1B1A;--ink:#F3F2EC;--muted:#A3A39C;--line:#F3F2EC;--soft:#3A3A37;--warn:#FF8A80}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#111110;--surface:#1B1B1A;--ink:#F3F2EC;--muted:#A3A39C;--line:#F3F2EC;--soft:#3A3A37;--warn:#FF8A80}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 24px 64px}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-bottom:14px;border-bottom:2px solid var(--line);font-family:var(--mono);font-size:14px}
+header b{font-family:var(--sans);font-size:20px;letter-spacing:-.02em}
+.takt{display:flex;justify-content:space-between;align-items:center;margin:22px 0 4px;color:var(--ink);height:34px;overflow:hidden}
+.takt i{display:block;width:4px;height:22px;background:currentColor;border-radius:4px;transform:rotate(38deg)}
+.takt span{font-size:38px;line-height:1;font-weight:400}
+.takt .y{color:var(--ink);background:var(--yel);padding:0 4px;color:var(--on-yel)}
+h1{font-size:clamp(40px,7vw,84px);line-height:.95;letter-spacing:-.045em;margin:26px 0 10px;font-weight:600}
+.mk{background:var(--yel);color:var(--on-yel);padding:0 .08em;border-radius:.05em .25em .07em .2em}
+.lead{font-size:19px;line-height:1.45;color:var(--muted);max-width:640px;margin:0 0 28px}
+.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:32px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1.5px solid var(--line);padding:22px}
+label{display:block;font-family:var(--mono);font-size:13px;color:var(--muted);margin:16px 0 6px}
+label:first-child{margin-top:0}
+textarea,input,select{width:100%;font:inherit;font-size:17px;color:var(--ink);background:var(--bg);border:1.5px solid var(--soft);padding:12px;border-radius:0}
+textarea{min-height:110px;resize:vertical;line-height:1.4}
+textarea:focus,input:focus,select:focus{outline:none;border-color:var(--line);box-shadow:0 0 0 3px var(--yel)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{font:inherit;font-size:14px;color:var(--ink);background:transparent;border:1.5px solid var(--soft);padding:8px 10px;cursor:pointer;text-align:left}
+.chip:hover{border-color:var(--line)}
+.chip:focus-visible,button:focus-visible{outline:3px solid var(--yel);outline-offset:2px}
+.found{margin-top:18px;font-family:var(--mono);font-size:13px;line-height:1.6;color:var(--muted)}
+.found b{color:var(--ink);font-weight:500}
+.checks{list-style:none;padding:0;margin:16px 0 0;font-size:15px}
+.checks li{display:flex;gap:10px;padding:7px 0;border-top:1px solid var(--soft)}
+.checks .ok::before{content:"✓";font-family:var(--mono);background:var(--yel);color:var(--on-yel);padding:0 5px}
+.checks .no::before{content:"!";font-family:var(--mono);background:var(--warn);color:#fff;padding:0 7px}
+.checks .no{color:var(--warn)}
+.out h2{font-family:var(--mono);font-size:13px;font-weight:400;color:var(--muted);margin:0 0 10px;display:flex;justify-content:space-between}
+.card{background:var(--surface);border:1.5px solid var(--line);padding:20px 22px;margin-bottom:14px;position:relative}
+.card .t{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:10px}
+.card .h{font-size:clamp(24px,3vw,34px);font-weight:600;letter-spacing:-.03em;line-height:1.08}
+.card .h sup{font-size:.45em;vertical-align:top;position:relative;top:.15em;margin-left:.05em}
+.card .fn{font-family:var(--mono);font-size:13px;margin-top:12px;color:var(--muted)}
+.card .fn.miss{color:var(--warn)}
+.card .post{font-size:16px;line-height:1.5;margin-top:10px;white-space:pre-line}
+.copy{position:absolute;top:14px;right:14px;font:inherit;font-family:var(--mono);font-size:12px;background:transparent;color:var(--ink);border:1.5px solid var(--line);padding:6px 10px;cursor:pointer}
+.copy:hover{background:var(--yel);color:var(--on-yel)}
+.empty{border:1.5px dashed var(--soft);padding:28px;color:var(--muted);font-size:17px}
+footer{margin-top:40px;padding-top:14px;border-top:2px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><b>Argo22</b><span>Měřítko copy · v0.1</span></header>
+  <div class="takt" aria-hidden="true" id="takt"></div>
+
+  <h1>Napiš fakt.<br><span class="mk">Dostaneš copy.</span></h1>
+  <p class="lead">Nástroj skládá texty podle systému „Dvě věty, jedno číslo, jeden důkaz“. Napiš obyčejnou větu s číslem a doplň, odkud číslo je.</p>
+
+  <div class="grid">
+    <section class="panel" aria-labelledby="in-h">
+      <h2 id="in-h" class="sr">Vstup</h2>
+      <label for="fact">Fakt jednou větou</label>
+      <textarea id="fact" placeholder="Za 2 roky jsme přinesli této firmě 3000 zákazníků"></textarea>
+      <div class="chips" aria-label="Příklady">
+        <button class="chip" type="button">Za 2 roky jsme přinesli této firmě 3000 zákazníků</button>
+        <button class="chip" type="button">MVP jsme dodali za 6 měsíců</button>
+        <button class="chip" type="button">Napojili jsme 9 systémů</button>
+        <button class="chip" type="button">Aplikace má hodnocení 4,7</button>
+      </div>
+      <div class="row">
+        <div><label for="client">Klient</label><input id="client" placeholder="E.ON"></div>
+        <div><label for="project">Projekt</label><input id="project" placeholder="Propojeno"></div>
+      </div>
+      <div class="row">
+        <div><label for="period">Období / rok</label><input id="period" placeholder="2023–2025"></div>
+        <div><label for="serie">Číslo v sérii</label><input id="serie" inputmode="numeric" placeholder="07"></div>
+      </div>
+      <div class="found" id="found" aria-live="polite"></div>
+      <ul class="checks" id="checks" aria-label="Kontrola pravidel"></ul>
+    </section>
+
+    <section class="out" aria-labelledby="out-h">
+      <h2 id="out-h"><span>Návrhy</span><span id="count"></span></h2>
+      <div id="cards"><div class="empty">Napiš fakt s číslem vlevo, nebo klikni na příklad.</div></div>
+    </section>
+  </div>
+
+  <footer><span>Pravidla: číslo číslicí · jedno číslo na nadpis · žádné číslo bez ²² · bez „až“ a superlativů</span><span>Kateřina Fikarová · Matěj Plaňanský</span></footer>
+</div>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var NB = '\u00A0';
+
+  // decorative takt strip
+  var takt = $('takt'), html = '';
+  for (var i = 0; i < 40; i++) html += (i % 11 === 2) ? '<span>2</span>' : (i >= 38 ? '<span class="y">2</span>' : '<i></i>');
+  takt.innerHTML = html;
+
+  var WORDS = {jeden:1,jedna:1,jedno:1,dva:2,'dvě':2,'tři':3,'čtyři':4,'pět':5,'šest':6,sedm:7,osm:8,'devět':9,deset:10,'dvanáct':12,'dvacet':20};
+  var TIME = /^(let|roky|rok|roků|roce|měsíc|měsíce|měsíců|měsíci|týden|týdny|týdnů|den|dny|dní|dnů|hodin|hodiny|kvartál|kvartály|kvartálů|sprint|sprinty|sprintů)$/i;
+  var STOP = /^(jsme|jsou|je|za|od|do|po|v|ve|na|s|se|pro|této|tomuto|tohoto|firmě|klientovi|nám|a)$/i;
+  var BANNED = [
+    [/(^|\s)až(\s|$)/i, 'Bez „až“. Napiš konkrétní případ.'],
+    [/\bpřes\s+\d/i, 'Bez „přes“. Napiš přesné číslo.'],
+    [/nejvyšší|nejlepší|nejvíc|špičkov|unikátn|revoluč/i, 'Bez superlativů. Číslo mluví samo.'],
+    [/hrdin|loď|plavb|výprav|poklad|rouno/i, 'Bez hrdinského patosu a lodí (zadání 08).']
+  ];
+
+  function fmt(nStr){
+    var n = nStr.replace(/[\s\u00A0.]/g,'');
+    if (n.indexOf(',') > -1) return n;
+    if (n.length >= 4) return n.replace(/\B(?=(\d{3})+(?!\d))/g, NB);
+    return n;
+  }
+  function wordsToDigits(t){
+    return t.replace(/[a-záčďéěíňóřšťúůýž]+/gi, function(w){
+      var k = w.toLowerCase(); return WORDS[k] ? String(WORDS[k]) : w;
+    });
+  }
+
+  function parse(raw){
+    var t = wordsToDigits(raw);
+    var re = /(\d{1,3}(?:[ \u00A0.]\d{3})+|\d+(?:,\d+)?)\s*(%|[a-záčďéěíňóřšťúůýž]+)?(?:\s+([a-záčďéěíňóřšťúůýž]+))?/gi;
+    var m, items = [];
+    while ((m = re.exec(t))){
+      var num = m[1], unit = m[2] || '', next = m[3] || '';
+      var plain = num.replace(/[\s\u00A0.]/g,'').replace(',', '.');
+      var val = parseFloat(plain);
+      var before = t.slice(Math.max(0, m.index - 14), m.index).toLowerCase();
+      var it = {raw:num, num:fmt(num), unit:unit, val:val, kind:'count'};
+      if (unit === '%') { it.kind = 'value'; it.noun = '%'; it.pct = next && !STOP.test(next) ? next : ''; }
+      else if (TIME.test(unit)) { it.kind = 'time'; it.noun = unit; }
+      else if (/^(19|20)\d\d$/.test(plain) && (!unit || STOP.test(unit))) { it.kind = 'year'; it.noun = ''; it.num = plain; }
+      else if (num.indexOf(',') > -1 && val <= 5) { it.kind = 'value'; it.noun = /hvězd/i.test(unit) ? unit : ''; it.rating = true; }
+      else {
+        var noun = unit;
+        if (!noun || STOP.test(noun)) noun = (next && !STOP.test(next)) ? next : '';
+        it.noun = noun;
+        if (/hodnocen/.test(before)) { it.kind = 'value'; it.rating = true; }
+      }
+      it.hasZa = /\bza\s*$/.test(before);
+      it.hasOd = /\bod\s*$/.test(before);
+      items.push(it);
+    }
+    // context words for the "řeš" sentence
+    var ctx = t.toLowerCase();
+    return {items:items, ctx:ctx};
+  }
+
+  function phrase(it){
+    if (!it) return '';
+    if (it.kind === 'value' && it.noun === '%') return it.num + NB + '%' + (it.pct ? ' ' + it.pct : '');
+    if (it.rating) return 'hodnocení ' + it.num;
+    return it.noun ? it.num + NB + it.noun : it.num;
+  }
+
+  function resSentence(main, ctx){
+    var n = (main && main.noun || '').toLowerCase();
+    if (main && main.rating) return ['Hodnotí zákazníci, ne my.', 'Číslo, které jsme si nenapsali sami.'];
+    if (/zákazník|klient/.test(n)) return ['Produkt, který si lidé vybírají.', 'Růst, který se dá spočítat.'];
+    if (/uživatel|stažen|instalac/.test(n)) return ['Produkt, který lidé opravdu používají.', 'Aplikace, ke které se lidé vracejí.'];
+    if (/integrac|systém|napoj/.test(n) || /napoj/.test(ctx)) return ['Jeden tým, který je napojil.', 'Bez švů mezi dodavateli.'];
+    if (main && main.noun === '%') return ['Výsledek, který se dá změřit.', 'Změřeno, ne odhadnuto.'];
+    if (/mvp|spuštěn|dodal|nasaz/.test(ctx)) return ['Od zadání po produkci.', 'Termín, který platil.'];
+    return ['Výsledek, který se dá doložit.', 'Změřeno. Vyřešeno.'];
+  }
+
+  function build(){
+    var raw = $('fact').value.trim();
+    var client = $('client').value.trim(), project = $('project').value.trim(), period = $('period').value.trim();
+    var serie = ($('serie').value.trim() || '01').replace(/\D/g,'').padStart(2,'0');
+    try { localStorage.setItem('argo22-copy', JSON.stringify({raw:raw, client:client, project:project, period:period, serie:$('serie').value})); } catch(e){}
+
+    var cards = $('cards'), found = $('found'), checks = $('checks');
+    if (!raw){ cards.innerHTML = '<div class="empty">Napiš fakt s číslem vlevo, nebo klikni na příklad.</div>'; found.textContent = ''; checks.innerHTML = ''; $('count').textContent = ''; return; }
+
+    var p = parse(raw), items = p.items;
+    var main = items.filter(function(i){ return i.kind === 'count' || i.kind === 'value'; })[0];
+    var time = items.filter(function(i){ return i.kind === 'time'; })[0];
+    var year = items.filter(function(i){ return i.kind === 'year'; })[0];
+    var hero = main || time || year;
+
+    found.innerHTML = items.length
+      ? 'Našel jsem: ' + items.map(function(i){
+          var lab = {count:'počet', value:'hodnota', time:'čas', year:'rok'}[i.kind];
+          return '<b>' + esc(phrase(i) || i.num) + '</b> (' + lab + ')';
+        }).join(' · ')
+      : '';
+
+    // footnote ²²
+    var src = [client, project, period].filter(Boolean).join(', ');
+    var fn = src ? '²² ' + src + '.' : '²² Doplň zdroj: klient, projekt, období.';
+
+    // rule checks
+    var list = [];
+    list.push([!!hero, hero ? 'Je tam číslo, číslicí.' : 'Chybí číslo. Systém potřebuje aspoň jedno.']);
+    list.push([!!src, src ? 'Číslo má zdroj ²².' : 'Chybí zdroj ²². Bez něj copy nepublikuj.']);
+    BANNED.forEach(function(b){ if (b[0].test(raw)) list.push([false, b[1]]); });
+    if (items.length > 2) list.push([false, 'Hodně čísel. Do nadpisu dej jen jedno, zbytek do textu.']);
+    if (!list.some(function(l){ return !l[0]; })) list.push([true, 'Bez superlativů a patosu.']);
+    checks.innerHTML = list.map(function(l){ return '<li class="' + (l[0] ? 'ok' : 'no') + '">' + esc(l[1]) + '</li>'; }).join('');
+
+    if (!hero){ cards.innerHTML = '<div class="empty">Nenašel jsem žádné číslo. Zkus třeba „za 6 měsíců“ nebo „3000 zákazníků“.</div>'; $('count').textContent = ''; return; }
+
+    var H = phrase(hero), T = time && time !== hero ? phrase(time) : '', Y = year && year !== hero ? year.num : '';
+    var subj = /mvp/.test(p.ctx) ? 'MVP' : (/aplikac/.test(p.ctx) ? 'Aplikace' : (/web/.test(p.ctx) ? 'Web' : 'Hotovo'));
+    if (!main && time) H = subj + ' za ' + phrase(time);
+    var res = resSentence(main, p.ctx);
+    var out = [];
+
+    // 1 Číslo. Význam.
+    out.push({t:'Číslo. Význam. · web, nadpis', h: cap(H) + (T ? ' za ' + T : '') + '.', h2: main ? res[0] : 'Termín, který platil.'});
+    // 2 Od – po
+    if (T && main) out.push({t:'Od – po · průběh projektu', h:'Od 0 po ' + H + '.', h2:'Za ' + T + '.'});
+    else if (Y && main) out.push({t:'Od – po · průběh projektu', h:'Od ' + Y + ' po ' + H + '.', h2:res[1]});
+    else if (time && !main) out.push({t:'Od – po · průběh projektu', h:'Od zadání po produkci.', h2:'Za ' + phrase(time) + '.', hl: phrase(time)});
+    // 3 Mnoho : jeden
+    if (main && !main.rating && main.noun !== '%') out.push({t:'Mnoho : jeden · jedna střecha', h: cap(H) + ', 1' + NB + 'partner.', h2: T ? 'Za ' + T + '.' : res[1]});
+    // 4 Dvakrát měř / jednou řeš
+    out.push({t:'Dvakrát měř · case study, delší text', h:'Dvakrát měř: ' + (T ? T + ' práce' : (Y ? 'od ' + Y : (main ? 'každý detail' : 'zadání a data'))) + '.', h2:'Jednou řeš: ' + H + '.'});
+    // 5 Série
+    out.push({t:'Série · LinkedIn', h:'Měření č.' + NB + serie + ' · ' + H + '.', h2:'', post: res[0] + '\n\n' + 'Dvakrát měř. Jednou řeš.'});
+
+    $('count').textContent = out.length + ' návrhů';
+    cards.innerHTML = out.map(function(o, k){
+      var head = highlight(esc(o.h), esc(o.hl || (main ? phrase(main) : phrase(hero)))) + '<sup>22</sup>' + (o.h2 ? ' ' + esc(o.h2) : '');
+      var text = o.h + '²²' + (o.h2 ? ' ' + o.h2 : '') + (o.post ? '\n\n' + o.post : '') + '\n\n' + fn;
+      return '<article class="card"><div class="t">' + String(k + 1).padStart(2,'0') + ' · ' + esc(o.t) + '</div>' +
+        '<div class="h">' + head + '</div>' +
+        (o.post ? '<div class="post">' + esc(o.post) + '</div>' : '') +
+        '<div class="fn' + (src ? '' : ' miss') + '">' + esc(fn) + '</div>' +
+        '<button class="copy" type="button" data-text="' + esc(text) + '" aria-label="Kopírovat návrh ' + (k + 1) + '">Kopírovat</button></article>';
+    }).join('');
+  }
+
+  function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function highlight(h, num){
+    var i = h.indexOf(num); if (i < 0) { var c = cap(num); i = h.indexOf(c); num = c; }
+    return i < 0 ? h : h.slice(0, i) + '<span class="mk">' + num + '</span>' + h.slice(i + num.length);
+  }
+
+  function copyText(txt, btn){
+    function done(){ btn.textContent = 'Zkopírováno'; setTimeout(function(){ btn.textContent = 'Kopírovat'; }, 1400); }
+    function fallback(){
+      var ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch(e){ btn.textContent = 'Označ a zkopíruj ručně'; }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, fallback); else fallback();
+  }
+
+  document.addEventListener('click', function(e){
+    var c = e.target.closest('.chip');
+    if (c){ $('fact').value = c.textContent; build(); $('fact').focus(); return; }
+    var b = e.target.closest('.copy');
+    if (b){ var d = document.createElement('textarea'); d.innerHTML = b.getAttribute('data-text'); copyText(d.value, b); }
+  });
+  ['fact','client','project','period','serie'].forEach(function(id){ $(id).addEventListener('input', build); });
+
+  try {
+    var saved = JSON.parse(localStorage.getItem('argo22-copy') || 'null');
+    if (saved){ $('fact').value = saved.raw || ''; $('client').value = saved.client || ''; $('project').value = saved.project || ''; $('period').value = saved.period || ''; $('serie').value = saved.serie || ''; }
+  } catch(e){}
+  if (!$('fact').value) $('fact').value = 'Za 2 roky jsme přinesli této firmě 3000 zákazníků';
+  build();
+})();
+</script>
+</body>
+</html>

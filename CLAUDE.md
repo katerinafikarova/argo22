@@ -49,6 +49,15 @@ Geist 600 pro display, Geist 400 pro text, Geist Mono pro poznámky a popisky.
 - Pásky: `<div class="takt" data-n data-every data-h data-amp>`, generuje je `app.js`.
 - Hladina: `.gauge > .water[style="--lvl:…%"]` + SVG `.surf`.
 
+## Nástroj Měřítko copy
+
+- Cesta: `copy/index.html`, URL https://katerinafikarova.github.io/argo22/copy/
+- Skládá copy podle systému „Dvě věty, jedno číslo, jeden důkaz“: věta měř (číslo), věta řeš (význam), poznámka ²² (zdroj).
+- Je čistě pravidlový, bez AI a bez API klíčů, aby běžel na GitHub Pages.
+- Šablony: Číslo. Význam. / Od – po / Mnoho : jeden / Dvakrát měř – Jednou řeš / Série.
+- Kontroly: chybí číslo, chybí zdroj ²², „až“, „přes“, superlativy, lodě a patos.
+- Věty „řeš“ jsou ve funkci `resSentence()`, nové obory se přidávají tam.
+
 ## Otevřené body
 
 - Ověřit čísla převzatá z Figmy: E.ON 4,5 / 4,7, „stovky tisíc zákazníků“, „od 2019“; Ochutnej Ořech „od 2022“.
