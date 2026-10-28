@@ -64,7 +64,7 @@
   <div class="grow"></div>
   <div class="proof in" style="--d:1.6s">
     <p class="proof-src">²² Petr Voves, CEO Ochutnej Ořech, na&nbsp;argo22.com</p>
-    <p><b>Obraz navrch, důkaz pod ním.</b> Legenda o&nbsp;zlatém rounu vznikla z&nbsp;praxe: ovčí kůže v&nbsp;bystřinách chytaly zlatinky. Efektní vrstva, pod ní fakt.</p>
+    <p><b>Obraz navrch, důkaz pod ním.</b> Legenda o&nbsp;zlatém rounu vznikla z&nbsp;praxe: ovčí kůže v&nbsp;bystřinách chytaly zlatinky. Efektní&nbsp;vrstva, pod ní fakt.</p>
   </div>
 </section>
 
@@ -173,12 +173,39 @@
 <!-- ===================== 12 · REELS (živá animace v telefonu) ===================== -->
 <section class="slide img" data-seconds="30" aria-label="Reels">
   <img class="full" src="assets/reels-telefony.jpg" alt="Instagram stories a Reels Argo22 ve třech telefonech" style="animation:none">
-  <!-- živá Reels animace přes třetí telefon: přesně 9:16 (388 × 690), přes celou šířku displeje až po spodní lištu -->
-  <iframe src="assets/reels-animace.html" title="Reels animace Argo22" style="position:absolute;left:1229px;top:183px;width:388px;height:690px;border:0;background:#0E0E0D"></iframe>
-  <!-- hlavička Reels leží přes video jako v Instagramu -->
-  <img class="reels-head" src="assets/reels-head.png" alt="">
-  <!-- rozhraní Instagramu (popisek, tlačítko, ikony) leží nad animací, stejně jako v telefonu -->
-  <img src="assets/reels-ui.png" alt="" style="position:absolute;left:1229px;top:218px;width:388px;height:655px;pointer-events:none;animation:none">
+  <!-- třetí telefon: skutečný vzhled Instagram Reels, celé rozhraní je vektorové.
+       Video 9:16 (388 × 690) začíná pod hlavičkou „Reels“, spodní lišta ho překrývá. -->
+  <div class="reel" aria-hidden="true">
+    <div class="reel-top">
+      <span class="reel-time">12:54</span><i class="reel-island"></i>
+      <svg class="reel-status" viewBox="0 0 66 12"><g fill="#fff"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="4.6" y="6" width="3" height="6" rx=".8"/><rect x="9.2" y="3.5" width="3" height="8.5" rx=".8"/><rect x="13.8" y="1" width="3" height="11" rx=".8"/></g><g fill="#fff"><path d="M30 2.2c2.7 0 5.2 1 7 2.8l1.2-1.3A11.6 11.6 0 0 0 30 .4a11.6 11.6 0 0 0-8.2 3.3L23 5c1.8-1.8 4.3-2.8 7-2.8z"/><path d="M30 5.7c1.7 0 3.3.7 4.5 1.8l1.2-1.3a8.2 8.2 0 0 0-11.4 0l1.2 1.3A6.4 6.4 0 0 1 30 5.7z"/><path d="M30 9.1c.8 0 1.5.3 2 .8L30 12l-2-2.1c.5-.5 1.2-.8 2-.8z"/></g><rect x="43.5" y=".8" width="19" height="10.4" rx="3" fill="none" stroke="#fff" stroke-opacity=".45"/><rect x="45.2" y="2.5" width="15.6" height="7" rx="1.8" fill="#fff"/><path d="M64 4.3v3.4c.7-.2 1.2-.9 1.2-1.7s-.5-1.5-1.2-1.7z" fill="#fff" fill-opacity=".45"/></svg>
+      <b class="reel-title">Reels</b>
+      <svg class="reel-cam" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h2l1.5-2h6l1.5 2h2A2.5 2.5 0 0 1 21 8.5v9a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.5" r="3.6"/></svg>
+    </div>
+    <iframe src="assets/reels-animace.html" title="Reels animace Argo22"></iframe>
+    <div class="reel-side">
+      <span><svg viewBox="0 0 24 24"><path d="M12 20.5s-8.5-5-8.5-11A4.8 4.8 0 0 1 12 6.7a4.8 4.8 0 0 1 8.5 2.8c0 6-8.5 11-8.5 11z"/></svg>12,4 tis.</span>
+      <span><svg viewBox="0 0 24 24"><path d="M20.5 11.8a8.5 8.5 0 1 1-3.7-7 8.5 8.5 0 0 1 3.7 7l.9 8.5-4.6-2.5"/></svg>238</span>
+      <span><svg viewBox="0 0 24 24"><path d="M21.5 3 2.8 10.2l7.4 3.1L21.5 3l-8.2 17.9-3.1-7.6"/></svg>1 024</span>
+      <span class="reel-dots"><i></i><i></i><i></i></span>
+      <span class="reel-sq">A22</span>
+    </div>
+    <div class="reel-info">
+      <div class="reel-acc"><span class="reel-av">A22</span><b>argo22com</b><svg class="reel-ok" viewBox="0 0 24 24"><path fill="#3897F0" d="m12 1 2.6 2.1 3.3-.3.9 3.2 2.9 1.6-1.2 3.1 1.2 3.1-2.9 1.6-.9 3.2-3.3-.3L12 23l-2.6-2.1-3.3.3-.9-3.2-2.9-1.6 1.2-3.1-1.2-3.1 2.9-1.6.9-3.2 3.3.3z"/><path d="m7.8 12.2 2.8 2.8 5.6-5.8" fill="none" stroke="#fff" stroke-width="2"/></svg><span class="reel-follow">Sledovat</span></div>
+      <div class="reel-spons">Sponzorováno</div>
+      <div class="reel-cap">Jak vypadá vývoj aplikace od nápadu po spuštění</div>
+      <div class="reel-cta">Kontaktuje nás<svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4"/></svg></div>
+      <div class="reel-music"><svg viewBox="0 0 24 24"><path d="M9 18.5V5l11-2v13" fill="none" stroke="#fff" stroke-width="2"/><circle cx="6.5" cy="18.5" r="2.7" fill="#fff"/><circle cx="17.5" cy="16" r="2.7" fill="#fff"/></svg>argo22com · Původní zvuk</div>
+    </div>
+    <div class="reel-nav">
+      <svg viewBox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5V21h-6v-6h-5v6h-6z"/></svg>
+      <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><path d="m15.5 15.5 6 6"/></svg>
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 7.5v9M7.5 12h9"/></svg>
+      <svg viewBox="0 0 24 24" class="on"><rect x="3" y="3" width="18" height="18" rx="5" fill="#fff"/><path d="M3 8.5h18M8.5 3l2.6 5.5M14 3l2.6 5.5" stroke="#000"/><path d="m10 11.5 5 3-5 3z" fill="#000" stroke="none"/></svg>
+      <span class="reel-av sm">A22</span>
+      <i class="reel-home"></i>
+    </div>
+  </div>
   <span class="label">Instagram / Stories a&nbsp;Reels</span>
 </section>
 
