@@ -27,10 +27,11 @@ Záložně: šipky, PageUp/PageDown (klikr), mezerník, Home/End, F. Žádné tl
 - Páska se vždy bere z `<template id="tape-svg">` (zdroj `assets/paska.svg`), v CSS se nekreslí.
 - Slide 12 a 14 jsou bez ochranných zón.
 - Slide 14 se skládá z vrstev: `li-phone.webp` (telefon s prvním postem) a `li-post1–3.jpg` (posty 4:5), exportované z `LINKEDIN_iphone-18-pro-max-mockup.png` a `LINKEDIN ARGO22 ONLINE2–4.jpg` ve 2× rozlišení.
+- Slide 03 (moodboard): volná kompozice `.mood` z `assets/mood-0–7.jpg`, fotky ze složky Moodboard přebarvené do tónů #F5F500 (tmavé ≈ #0E0E0D, světlé = světle žlutá, barevné akcenty = plná #F5F500).
 - Slide 04: citace = obraz, pod linkou `.proof` = důkaz (zdroj ²² + princip „Obraz navrch, důkaz pod ním“).
-- Slide 11 „Homepage webu“: projekty ve webu jsou jednotné dlaždice `.ph-blank` (E.ON Propojeno, Ochutnej Ořech, Zachraň karase).
+- Slide 11 „Homepage webu“: projekty ve webu jsou jednotné dlaždice `.ph-blank` (E.ON Propojeno, Ochutnej Ořech, Zachraň karase); každý projekt se při kliknutí naleje znovu (hladina klesne a zvedne se).
 - Slide 13 se skládá z vrstev `ig-phone.webp`, `ig-post-left.webp`, `ig-post-right.webp` z `mockup_instagram.png`; posty vyjedou do stran.
-- Reels animace (slide 12) je `argo22-animace.html` s páskou, zpomalená: nalití 3,5 s, start po 2 s, pauza na konci 5 s. Rozhraní Reels (`.reel`) je vektorové v HTML/SVG: stavový řádek, hlavička „Reels“, ikony, popisek, tlačítko a spodní lišta. Video 9:16 (388 × 690) začíná pod hlavičkou, spodní lišta ho překrývá, u spodního okraje je tmavý přechod kvůli čitelnosti.
+- Reels animace (slide 12) je `argo22-animace.html` s páskou, zpomalená: nalití 3,5 s, start po 2 s, pauza na konci 5 s. Rozhraní Reels (`.reel`) je vektorové v HTML/SVG: stavový řádek, hlavička „Reels“, ikony, popisek, tlačítko a spodní lišta. Video 9:16 (431 × 766, po stranách lehce oříznuté) teče přes celý displej pod stavový řádek a hlavičku „Reels“ a končí nad spodní lištou, u spodního okraje je tmavý přechod kvůli čitelnosti.
 
 ## Nasazení
 
