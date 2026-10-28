@@ -190,3 +190,19 @@ body.idle,body.idle *{cursor:none!important}
 .li-post{top:293px;width:397px;height:496px;box-shadow:0 14px 36px rgba(14,14,13,.16);transform:translate3d(var(--from),0,0);will-change:transform;backface-visibility:hidden}
 .is-active .li-post{animation:liOut 2.4s cubic-bezier(.22,1,.36,1) .5s forwards}
 @keyframes liOut{to{transform:translate3d(0,0,0)}}
+
+/* Instagram čísla: posty vyjedou zpoza telefonu do stran */
+.ig{position:absolute;inset:0;background:#fff}
+.ig img{position:absolute;display:block}
+.ig-phone{z-index:2}
+.ig-post{transform:translate3d(var(--from),0,0);will-change:transform;backface-visibility:hidden}
+.is-active .ig-post{animation:liOut 2.4s cubic-bezier(.22,1,.36,1) .5s forwards}
+
+/* Reels: hlavička přes video */
+.reels-head{position:absolute;left:1229px;top:176px;width:388px;height:42px;pointer-events:none;filter:drop-shadow(0 1px 3px rgba(0,0,0,.35))}
+
+/* důkaz pod obrazem (slide 04) */
+.proof{border-top:2px solid var(--line);padding-top:24px;display:flex;flex-direction:column;gap:10px;max-width:1500px}
+.proof p{margin:0;font-size:28px;line-height:1.45;color:#D9D8D2}
+.proof b{color:var(--white);font-weight:600}
+.proof .proof-src{color:var(--yel);font-size:24px}

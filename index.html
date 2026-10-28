@@ -58,11 +58,14 @@
 
 <!-- ===================== 04 · CITACE KLIENTA ===================== -->
 <section class="slide" data-seconds="25" aria-label="Citace klienta">
-  <div class="head"><span>Odpověď už existuje</span><span data-num></span></div>
+  <div class="head"><span>Výchozí bod / Slovo klienta</span><span data-num></span></div>
   <div class="grow"></div>
   <p class="h2 in" style="font-weight:500;font-size:110px;line-height:1.08">„Tým Argo22 <span class="hl" style="--d:.7s">plní své sliby</span>, což v&nbsp;programování není běžné.“</p>
-  <p class="small in" style="--d:.5s;font-size:32px;margin-top:36px">Petr Voves, CEO Ochutnej Ořech, na&nbsp;argo22.com</p>
   <div class="grow"></div>
+  <div class="proof in" style="--d:1.6s">
+    <p class="proof-src">²² Petr Voves, CEO Ochutnej Ořech, na&nbsp;argo22.com</p>
+    <p><b>Obraz navrch, důkaz pod ním.</b> Legenda o&nbsp;zlatém rounu vznikla z&nbsp;praxe: ovčí kůže v&nbsp;bystřinách chytaly zlatinky. Efektní vrstva, pod ní fakt.</p>
+  </div>
 </section>
 
 <!-- ===================== 05 · MYŠLENKA + CLAIM ===================== -->
@@ -156,7 +159,7 @@
 
 <!-- ===================== 11 · WEB (roluje se sám) ===================== -->
 <section class="slide" data-seconds="35" aria-label="Web">
-  <div class="head"><span>Aplikace / Web</span><span data-num></span></div>
+  <div class="head"><span>Homepage webu</span><span data-num></span></div>
   <div class="row" style="margin-top:36px;align-items:center;justify-content:center;flex:1">
     <div class="browser in" style="flex:none;width:1500px">
       <div class="bar-top"><i></i><i></i><i></i><span>argo22.com</span></div>
@@ -170,8 +173,10 @@
 <!-- ===================== 12 · REELS (živá animace v telefonu) ===================== -->
 <section class="slide img" data-seconds="30" aria-label="Reels">
   <img class="full" src="assets/reels-telefony.jpg" alt="Instagram stories a Reels Argo22 ve třech telefonech" style="animation:none">
-  <!-- živá Reels animace přes třetí telefon; pozici doladíte left/top/width/height -->
-  <iframe src="assets/reels-animace.html" title="Reels animace Argo22" style="position:absolute;left:1229px;top:218px;width:388px;height:655px;border:0;background:#0E0E0D"></iframe>
+  <!-- živá Reels animace přes třetí telefon: přesně 9:16 (388 × 690), přes celou šířku displeje až po spodní lištu -->
+  <iframe src="assets/reels-animace.html" title="Reels animace Argo22" style="position:absolute;left:1229px;top:183px;width:388px;height:690px;border:0;background:#0E0E0D"></iframe>
+  <!-- hlavička Reels leží přes video jako v Instagramu -->
+  <img class="reels-head" src="assets/reels-head.png" alt="">
   <!-- rozhraní Instagramu (popisek, tlačítko, ikony) leží nad animací, stejně jako v telefonu -->
   <img src="assets/reels-ui.png" alt="" style="position:absolute;left:1229px;top:218px;width:388px;height:655px;pointer-events:none;animation:none">
   <span class="label">Instagram / Stories a&nbsp;Reels</span>
@@ -179,7 +184,12 @@
 
 <!-- ===================== 13 · DATOVÉ POSTY ===================== -->
 <section class="slide img" data-seconds="20" aria-label="Datové posty">
-  <img class="full" src="assets/data-posty.jpg" alt="Posty s čísly: 45+ lidí, hodnocení 5,0, 15+ let">
+  <!-- posty plynule vyjedou zpoza telefonu doleva a doprava a zůstanou -->
+  <div class="ig">
+    <img class="ig-post" src="assets/ig-post-left.webp" alt="Post 45+ lidí" style="left:198px;top:51px;width:535px;height:1008px;--from:453px">
+    <img class="ig-post" src="assets/ig-post-right.webp" alt="Post 15+ let" style="left:1187px;top:34px;width:528px;height:1110px;--from:-450px">
+    <img class="ig-phone" src="assets/ig-phone.webp" alt="Instagram profil Argo22 v telefonu s postem hodnocení 5,0" style="left:734px;top:-19px;width:454px;height:1186px">
+  </div>
   <span class="label">Instagram / Čísla</span>
 </section>
 
