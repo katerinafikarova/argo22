@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Argo22 · Digitální produkty, které plní, co slibují</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>@font-face{font-family:'Outfit';src:url('Outfit.ttf') format('truetype');font-weight:100 900;font-display:block}</style>
 <style>
 :root{
   --bg:#FFFFFF; --ink:#0E0E0D; --muted:#5F5E5A; --line:#E4E4E0; --teal:#2F7F8C;
@@ -22,7 +22,7 @@
   --btn-bg:#F3F2EC; --btn-fg:#0E0E0D; --tile:#151514; color-scheme:dark; }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Geist,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Outfit,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit}
 img{max-width:100%;display:block}
 .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
@@ -124,7 +124,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <a class="logo" href="#top">Argo22</a>
   <ul class="menu">
    <li><a class="dd" href="#sluzby">Služby</a></li><li><a class="dd" href="#reseni">Řešení</a></li><li><a class="dd" href="#projekty">Naše práce</a></li>
-   <li><a href="#onas">O nás</a></li><li><a href="#kariera">Kariéra</a></li><li><a href="#blog">Blog</a></li>
+   <li><a href="#onas">O nás</a></li><li><a href="#kariera">Kariéra</a></li><li><a href="#blog">Blog</a></li>
   </ul>
   <div class="right"><span class="lang"><a href="#cz" aria-current="true">Cz</a><a href="#en">En</a></span><a class="btn btn-dark" href="#kontakt">Kontaktujte nás</a></div>
  </div>
@@ -132,7 +132,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <main id="top">
  <section class="wrap hero">
   <h1>Digitální produkty,<br> které plní, co slibují.</h1>
-  <p class="lead">Od prvního nápadu po nasazení. Navrhujeme a stavíme špičková digitální řešení. Zbavujeme vás technického dluhu, posilujeme vývojové kapacity a zajišťujeme, že každý projekt vede zkušený tým s jasnou vizí.</p>
+  <p class="lead">Od prvního nápadu po nasazení. Navrhujeme a stavíme špičková digitální řešení. Zbavujeme vás technického dluhu, posilujeme vývojové kapacity a zajišťujeme, že každý projekt vede zkušený tým s jasnou vizí.</p>
   <a class="btn btn-yellow" href="#kontakt">Kontaktujte nás</a>
  </section>
  <div class="wrap photos">
@@ -143,17 +143,17 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
  <section class="wrap stats" aria-label="Čísla">
   <div class="grid">
-   <a class="stat" href="#onas"><div class="tile"><div class="num"><span data-to="15">0</span><span class="unit">+</span></div><div class="label">Let zkušeností</div></div><div class="note">Více než 15 let zkušeností napříč obory a trhy.</div></a>
+   <a class="stat" href="#onas"><div class="tile"><div class="num"><span data-to="15">0</span><span class="unit">+</span></div><div class="label">Let zkušeností</div></div><div class="note">Více než 15 let zkušeností napříč obory a trhy.</div></a>
    <a class="stat" href="#sluzby"><div class="tile"><div class="num"><span data-to="100">0</span><span class="unit">%</span></div><div class="label">Podpora</div></div><div class="note">Každý projekt má naši dlouhodobou podporu.</div></a>
-   <a class="stat" href="#reseni"><div class="tile"><div class="num"><span data-to="40">0</span><span class="unit">%</span></div><div class="label">Úspora nákladů</div></div><div class="note">React Native šetří čas i náklady mobilního vývoje.</div></a>
-   <a class="stat" href="#kariera"><div class="tile"><div class="num"><span data-to="45">0</span><span class="unit">+</span></div><div class="label">Expertů v týmu</div></div><div class="note">Partneři, na které se můžete vždy spolehnout.</div></a>
-   <a class="stat" id="rating" href="https://clutch.co/profile/argo22" target="_blank" rel="noopener"><div class="tile"><div class="num"><span data-to="5" data-dec="1">0</span><span class="stars" aria-label="5 z 5 hvězd"><span class="star"><svg class="out" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg class="fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span><span class="star"><svg class="out" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg class="fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span><span class="star"><svg class="out" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg class="fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span><span class="star"><svg class="out" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg class="fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span><span class="star"><svg class="out" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg class="fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span></span></div><div class="label">Hodnocení</div></div><div class="note">Špičkové hodnocení od klientů z celého světa na clutch.co.</div></a>
+   <a class="stat" href="#reseni"><div class="tile"><div class="num"><span data-to="40">0</span><span class="unit">%</span></div><div class="label">Úspora nákladů</div></div><div class="note">React Native šetří čas i náklady mobilního vývoje.</div></a>
+   <a class="stat" href="#kariera"><div class="tile"><div class="num"><span data-to="45">0</span><span class="unit">+</span></div><div class="label">Expertů v týmu</div></div><div class="note">Partneři, na které se můžete vždy spolehnout.</div></a>
+   <a class="stat" id="rating" href="https://clutch.co/profile/argo22" target="_blank" rel="noopener"><div class="tile"><div class="num"><span data-to="5" data-dec="1">0</span><span class="stars" aria-label="5 z 5 hvězd"><span class="star"><svg class="out" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg class="fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span><span class="star"><svg class="out" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg class="fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span><span class="star"><svg class="out" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg class="fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span><span class="star"><svg class="out" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg class="fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span><span class="star"><svg class="out" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg class="fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span></span></div><div class="label">Hodnocení</div></div><div class="note">Špičkové hodnocení od klientů z celého světa na clutch.co.</div></a>
   </div>
  </section>
 
  <section class="wrap projects" id="projekty">
-  <div class="ph"><h2>Spolupráce s reálnými výsledky</h2><a class="more" href="#projekty">Projekty</a></div>
-  <p class="sub">Od prvního nápadu po spuštění. Společně s klienty tvoříme digitální řešení, která dávají smysl, fungují v praxi a pomáhají růst.</p>
+  <div class="ph"><h2>Spolupráce s reálnými výsledky</h2><a class="more" href="#projekty">Projekty</a></div>
+  <p class="sub">Od prvního nápadu po spuštění. Společně s klienty tvoříme digitální řešení, která dávají smysl, fungují v praxi a pomáhají růst.</p>
   <div class="pgrid">
    <ul class="plist" role="tablist" aria-label="Projekty">
     <li><button class="pitem" role="tab" aria-selected="true" data-i="0"><small>Webová aplikace</small><span>E.ON Propojeno</span></button></li>
@@ -174,9 +174,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <script>
 const BOUNDS=[0, 104, 212, 220, 225, 325, 332, 447, 454, 558, 564, 568, 669, 678, 792, 900, 910, 1137, 1143, 1242, 1245, 1250, 1357, 1364, 1370, 1479, 1593, 1704, 1706, 1710, 1715, 1821, 1937, 2049, 2054, 2059, 2167, 2280, 2393, 2513, 2616, 2628, 2726, 2735, 2742, 2855, 2969, 3083, 3090, 3191, 3199, 3305, 3309, 3313, 3319, 3430, 3434, 3533, 3542, 3656, 3764, 3770, 3776, 3997, 4000, 4005, 4111, 4114, 4122, 4229, 4344, 4456, 4571, 4576, 4686, 4794, 4800, 4806, 4913, 4918, 4923, 5031, 5144, 5256, 5261, 5374, 5377, 5490, 5495, 5601, 5606, 5719, 5832, 5944, 5950, 5954, 6055, 6063, 6173, 6177, 6183, 6285, 6289, 6293, 6295, 6298, 6407, 6520, 6628, 6636, 6742, 6747, 6859, 6865, 6870, 6975, 6985, 7093, 7207, 7323, 7431, 7441, 7543, 7550, 7552, 7660, 7670, 7780, 7786, 7895, 8000], SW=200, SH=8000;
 const projects=[
- {tag:"Webová aplikace",title:"E.ON Propojeno",text:"Pro E.ON jsme během šesti měsíců navrhli a dodali webovou platformu pro chytré sdílení elektřiny. Propojuje výrobce s odběrateli, automatizuje administrativu a vytváří základ pro další rozvoj energetického ekosystému."},
- {tag:"E-shop",title:"Ochutnej Ořech",text:"Pro Ochutnej Ořech jsme postavili e-shop, který dlouhodobě rozvíjíme. Přinesli jsme metodickou práci a dokumentaci, díky které se dá e-shop bezpečně dál rozšiřovat."},
- {tag:"Mobilní aplikace",title:"Zachraň karase",text:"Mobilní aplikace, kterou jsme navrhli a vyvinuli pro Akademii věd ČR."}];
+ {tag:"Webová aplikace",title:"E.ON Propojeno",text:"Pro E.ON jsme během šesti měsíců navrhli a dodali webovou platformu pro chytré sdílení elektřiny. Propojuje výrobce s odběrateli, automatizuje administrativu a vytváří základ pro další rozvoj energetického ekosystému."},
+ {tag:"E-shop",title:"Ochutnej Ořech",text:"Pro Ochutnej Ořech jsme postavili e-shop, který dlouhodobě rozvíjíme. Přinesli jsme metodickou práci a dokumentaci, díky které se dá e-shop bezpečně dál rozšiřovat."},
+ {tag:"Mobilní aplikace",title:"Zachraň karase",text:"Mobilní aplikace, kterou jsme navrhli a vyvinuli pro Akademii věd ČR."}];
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ---------- projects: hover fills the showcase with yellow ---------- */
