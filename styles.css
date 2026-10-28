@@ -1,140 +1,192 @@
+/* =========================================================
+   ARGO22 · BRAND 2.0 · SELF-PLAYING SHOW
+   Barvy a písmo: měňte jen tady.
+   ========================================================= */
+@font-face{font-family:'Outfit';src:url('assets/Outfit.ttf') format('truetype');font-weight:100 900;font-display:block}
+
 :root{
+  --yel:#F5F500;      /* hlavní žlutá ze zadání, neměnit */
+  --ink:#0E0E0D;      /* černá */
+  --white:#FFFFFF;    /* bílá */
+  --mute:#9C9B95;     /* tlumený text na černé */
+  --line:#2E2E2C;     /* linky na černé */
+  --font:'Outfit','Helvetica Neue',Arial,sans-serif;
+  --fill-time:2.4s;   /* jak dlouho trvá nalití pásky (přehraje se jednou) */
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
-  --ink:#0E0E0D; --white:#FFFFFF; --paper:#F3F2EC; --yel:#F5F500;
-  --gl:#5E5E59; --gd:#A3A39C;
-  --chrome-bg:#E7E6DF; --chrome-fg:#0E0E0D;
-  --sans:'Geist','Helvetica Neue',Helvetica,Arial,sans-serif;
-  --mono:'Geist Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--chrome-bg:#1B1B1A;--chrome-fg:#F3F2EC}}
-:root[data-theme="dark"]{--chrome-bg:#1B1B1A;--chrome-fg:#F3F2EC}
 *,*::before,*::after{box-sizing:border-box}
-html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;height:100%;background:var(--chrome-bg);color:var(--chrome-fg);font-family:var(--sans);overflow:hidden;-webkit-font-smoothing:antialiased}
-.viewport{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center}
-.slide{position:absolute;inset:0;padding:84px 96px 72px;display:flex;flex-direction:column;overflow:hidden;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s linear .45s}
-.slide.is-active{opacity:1;visibility:visible;transition:opacity .45s ease}
-.s-white{background:var(--white);color:var(--ink)}
-.s-paper{background:var(--paper);color:var(--ink)}
-.s-ink{background:var(--ink);color:var(--white)}
-.s-yel{background:var(--yel);color:var(--ink)}
+html,body{height:100%}
+body{margin:0;background:#000;color:var(--white);font-family:var(--font);overflow:hidden;-webkit-font-smoothing:antialiased}
 
-/* chrome inside slides */
-.top{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:20px;border-bottom:2px solid currentColor;font-family:var(--mono);font-size:20px;letter-spacing:.02em}
-.top .n{opacity:.6}
-.src{margin-top:auto;padding-top:22px;display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:19px}
-.src b{font-weight:500;background:var(--yel);color:var(--ink);padding:2px 8px}
-.s-ink .src span{color:var(--gd)} .src span{color:var(--gl)}
+/* ---------- jeviště 1920 × 1080, škáluje se do okna ---------- */
+.viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;background:var(--ink);overflow:hidden}
 
-/* type */
-.d1{font-size:220px;font-weight:600;line-height:.92;letter-spacing:-.05em;margin:0}
-.d2{font-size:132px;font-weight:600;line-height:.95;letter-spacing:-.045em;margin:0}
-.d3{font-size:92px;font-weight:600;line-height:1;letter-spacing:-.04em;margin:0}
-.d4{font-size:60px;font-weight:600;line-height:1.04;letter-spacing:-.03em;margin:0}
-.lead{font-size:30px;line-height:1.38;max-width:760px;margin:0}
-.body{font-size:26px;line-height:1.4;margin:0}
-.mono{font-family:var(--mono);font-size:21px;line-height:1.45;letter-spacing:.01em}
-.muted{color:var(--gl)} .s-ink .muted{color:var(--gd)}
-sup.n22{font-size:.36em;vertical-align:top;position:relative;top:.12em;margin-left:.08em;letter-spacing:0;font-weight:600}
-.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:32px}
-.fill{flex-grow:1;display:flex;flex-direction:column}
-.end{justify-content:flex-end}
-.center{justify-content:center}
-.grid.fill{display:grid;flex-grow:1;flex-direction:initial}
+.slide{position:absolute;inset:0;padding:80px 96px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility 0s linear .9s;background:var(--ink)}
+.slide.is-active{opacity:1;visibility:visible;transition:opacity .9s ease}
+.slide.yellow{background:var(--yel);color:var(--ink)}
+.slide.white{background:var(--white);color:var(--ink)}
 
-/* highlighter: a human stroke that draws itself in */
-.mk{position:relative;z-index:0;white-space:nowrap;color:var(--ink)}
-.mk::before{content:"";position:absolute;left:-.07em;right:-.1em;top:.14em;bottom:.02em;background:var(--yel);z-index:-1;
-  border-radius:.05em .28em .07em .22em/.3em .07em .28em .09em;transform:rotate(-1.2deg) skewX(-7deg) scaleX(0);transform-origin:left center;
-  transition:transform .7s cubic-bezier(.6,.05,.25,1) var(--d,.5s)}
-.ul{position:relative;z-index:0;white-space:nowrap}
-.ul::before{content:"";position:absolute;left:-.04em;right:-.12em;bottom:-.02em;height:.3em;background:var(--yel);z-index:-1;
-  border-radius:.04em .22em .06em .3em/.25em .06em .3em .08em;transform:rotate(-.9deg) skewX(-10deg) scaleX(0);transform-origin:left center;
-  transition:transform .7s cubic-bezier(.6,.05,.25,1) var(--d,.5s)}
-.is-active .mk::before{transform:rotate(-1.2deg) skewX(-7deg) scaleX(1)}
-.is-active .ul::before{transform:rotate(-.9deg) skewX(-10deg) scaleX(1)}
+/* hlavička slidu */
+.head{display:flex;justify-content:space-between;align-items:center;font-size:24px;color:var(--mute);padding-bottom:20px;border-bottom:2px solid var(--line)}
+.yellow .head,.white .head{color:#3A3A37;border-color:currentColor}
+.logo svg{display:block;height:var(--logo-h,38px);width:auto;color:var(--white)}
+.yellow .logo svg,.white .logo svg{color:var(--ink)}
 
-/* strike */
-.strike{position:relative;display:inline}
-.strike::after{content:"";position:absolute;left:-2px;top:52%;height:3px;width:0;background:currentColor;transition:width .5s ease var(--d,.6s)}
-.is-active .strike::after{width:calc(100% + 4px)}
+/* typografie */
+.h1{font-size:150px;font-weight:600;line-height:1.08;letter-spacing:-.035em;margin:0}
+.h2{font-size:104px;font-weight:600;line-height:1.08;letter-spacing:-.03em;margin:0}
+.h3{font-size:64px;font-weight:600;line-height:1.05;letter-spacing:-.025em;margin:0}
+.lead{font-size:40px;line-height:1.3;color:#D9D8D2;margin:0}
+.yellow .lead,.white .lead{color:#2B2B29}
+.small{font-size:26px;line-height:1.4;color:var(--mute)}
+.yellow .small,.white .small{color:#3A3A37}
+.idx{font-size:.4em;font-weight:400;color:var(--yel);vertical-align:top;position:relative;top:.1em;margin-left:.06em}
+.yellow .idx{color:var(--ink)}
+.foot{font-size:28px;line-height:1.4;color:#D9D8D2;padding-top:22px;border-top:2px solid var(--line)}
+.foot b{color:var(--yel);font-weight:400}
+.yellow .foot{color:var(--ink);border-color:var(--ink)}
+.yellow .foot b{color:var(--ink)}
+.grow{flex-grow:1}
+.row{display:flex;gap:48px}
+.col{display:flex;flex-direction:column;gap:24px}
 
-/* rise-in for one orchestrated moment per slide */
-.rise{opacity:0;transform:translateY(24px);transition:opacity .6s ease var(--d,.1s),transform .6s cubic-bezier(.2,.7,.2,1) var(--d,.1s)}
-.is-active .rise{opacity:1;transform:none}
+/* vstupní animace prvků (spustí se, když je slide aktivní) */
+.in{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.is-active .in{opacity:1;transform:none}
 
-/* ruler */
-.ruler{position:relative;display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid currentColor}
-.ruler .yel{position:absolute;top:0;bottom:0;background:var(--yel);transform:scaleY(0);transform-origin:bottom;transition:transform .5s ease var(--yd,1.2s)}
-.is-active .ruler .yel{transform:scaleY(1)}
-.ruler i{display:block;background:currentColor;position:relative;transform:scaleY(0);transform-origin:bottom;transition:transform .35s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i) * 9ms + var(--rd,.15s))}
-.ruler i.on{background:var(--ink)}
-.is-active .ruler i{transform:scaleY(1)}
-.labels{display:flex;justify-content:space-between;margin-top:12px;font-family:var(--mono);font-size:18px}
-.labels span{width:0;display:flex;justify-content:center;white-space:nowrap}
+/* =========================================================
+   PÁSKA: vždy z assets/paska.svg (vloženo jako <template id="tape-svg">).
+   Tvar se nikdy nekreslí v CSS. Barva = currentColor.
+   ========================================================= */
+.tape{display:block;color:var(--yel);line-height:0}
+.tape.ink{color:var(--ink)}
+.tape-svg{display:block;width:100%;height:auto;overflow:visible}
+/* „kreslení“: dílky naskočí JEDNOU zleva doprava a zůstanou */
+.tape.draw .tape-svg path{opacity:0}
+.is-active .tape.draw .tape-svg path{animation:tok .5s ease forwards;animation-delay:calc(var(--d,0s) + var(--i,0) * 45ms)}
+@keyframes tok{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
+/* PRUH, KTERÝ SE NALEJE (jednou): <div class="bar" style="--to:58%"></div> */
+.bar{position:relative;padding:var(--pad,14px) var(--pad,14px);box-shadow:inset 0 0 0 2px var(--line);overflow:hidden}
+.yellow .bar,.white .bar{box-shadow:inset 0 0 0 2px var(--ink)}
+.bar>.tape{position:relative}
+.bar>.fill{position:absolute;inset:0;padding:inherit;background:var(--yel);clip-path:inset(0 100% 0 0)}
+.bar>.fill .tape{color:var(--ink)}
+.is-active .bar>.fill{animation:fillOnce var(--fill-time,2.4s) cubic-bezier(.45,.05,.25,1) forwards;animation-delay:var(--fd,0s)}
+@keyframes fillOnce{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 calc(100% - var(--to,100%)) 0 0)}}
+/* svislý a vodorovný sloupec v grafu: hladina se naleje jednou */
+.vbar{position:relative;width:var(--bw,90px);height:100%;box-shadow:inset 0 0 0 2px var(--line);overflow:hidden}
+.vbar>.fill{position:absolute;left:0;right:0;bottom:0;background:var(--yel);height:var(--to,100%);clip-path:inset(100% 0 0 0)}
+.is-active .vbar>.fill{animation:vfill var(--fill-time,2.4s) cubic-bezier(.45,.05,.25,1) forwards;animation-delay:var(--fd,0s)}
+@keyframes vfill{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+.hbar{position:relative;height:var(--bh,56px);box-shadow:inset 0 0 0 2px var(--line)}
+.hbar>.fill{position:absolute;top:0;bottom:0;left:var(--from,0%);width:var(--to,100%);background:var(--yel);clip-path:inset(0 100% 0 0)}
+.is-active .hbar>.fill{animation:hfill var(--fill-time,2.4s) cubic-bezier(.45,.05,.25,1) forwards;animation-delay:var(--fd,0s)}
+@keyframes hfill{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 
-/* takt: strokes and twos */
-.takt{display:flex;justify-content:space-between;align-items:center;color:var(--yel);width:100%}
-.takt .st{display:block;width:calc(var(--h) * .11);height:calc(var(--h) * .62);background:currentColor;border-radius:99px;transform:rotate(38deg) scaleY(0);transition:transform .25s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i) * 45ms + var(--td,.2s))}
-.takt .tw{display:block;font-family:var(--sans);font-weight:400;font-size:calc(var(--h) * 1.15);line-height:.8;letter-spacing:-.02em;opacity:0;transform:translateY(20%);transition:opacity .3s ease,transform .3s ease;transition-delay:calc(var(--i) * 45ms + var(--td,.2s))}
-.is-active .takt .st{transform:rotate(38deg) scaleY(1)}
-.is-active .takt .tw{opacity:1;transform:none}
-.takt.on-light{color:var(--ink)}
+/* číslo slidu (doplní deck.js) */
+.pageno{position:absolute;right:48px;top:40px;z-index:5;font-size:22px;font-variant-numeric:tabular-nums;color:var(--mute)}
+.yellow .pageno,.white .pageno{color:#3A3A37}
+.slide.img .pageno{background:var(--ink);color:#fff;padding:8px 16px}
 
+/* ---------- znaky z dvojky ---------- */
+.q2{display:inline-flex;flex-direction:column;align-items:center;gap:.08em;line-height:.74}
+.q2 i{display:block;width:.19em;height:.19em;border-radius:50%;background:currentColor}
+.is-active .q2 i{animation:bounce 1.6s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-.08em)}}
+.heart{display:inline-flex;line-height:.8}
+.heart span:first-child{display:inline-block;transform:scaleX(-1);margin-right:-.035em}
+.is-active .heart{animation:beat 1.4s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.08)}30%{transform:scale(1)}45%{transform:scale(1.05)}}
+.rq{display:inline-block;transform:rotate(180deg)}
 
-/* ripple: each beat bobs with a phase offset, so the strip ripples like a surface */
-.takt .b{display:block;animation:bob 2.8s ease-in-out infinite;animation-delay:calc(var(--i) * -0.17s)}
-@keyframes bob{0%,100%{transform:translateY(calc(var(--amp) * -1))}50%{transform:translateY(var(--amp))}}
-.slide:not(.is-active) .takt .b{animation-play-state:paused}
-/* slow rise of the whole strip */
-.rise-slow{transform:translateY(420px);transition:transform 9s cubic-bezier(.15,.55,.25,1) .2s}
-.is-active .rise-slow{transform:none}
+/* ---------- mockupy ---------- */
+.browser{background:#1B1B1A;border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px #2E2E2C}
+.browser .bar-top{height:44px;display:flex;align-items:center;gap:8px;padding:0 18px;background:#232322}
+.browser .bar-top i{width:12px;height:12px;border-radius:50%;background:#3A3A37}
+.browser .bar-top span{margin-left:18px;font-size:16px;color:#8A8984;background:#151514;border-radius:8px;padding:6px 16px}
+.browser .screen{position:relative;overflow:hidden;background:#fff}
+.browser .screen iframe{position:absolute;left:0;top:0;border:0;transform-origin:top left}
 
-/* table rows */
-.rows>div{display:grid;gap:32px;padding:22px 0;border-top:1.5px solid currentColor;align-items:baseline}
-.rows{border-bottom:1.5px solid currentColor}
+.phone{position:relative;width:var(--pw,360px);height:calc(var(--pw,360px)*2.1);border-radius:52px;background:#000;padding:12px;box-shadow:0 0 0 2px #2E2E2C,0 30px 80px rgba(0,0,0,.5);flex:none}
+.phone .screen{position:relative;width:100%;height:100%;border-radius:42px;overflow:hidden;background:var(--ink)}
+.phone iframe{border:0;width:100%;height:100%;display:block}
 
-/* nav */
-.nav{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 10px);display:flex;justify-content:center;align-items:center;gap:14px;pointer-events:none}
-.nav button{pointer-events:auto;font:500 14px/1 var(--mono);color:var(--chrome-fg);background:transparent;border:1.5px solid var(--chrome-fg);min-width:44px;height:44px;padding:0 14px;cursor:pointer}
-.nav button:focus-visible{outline:3px solid var(--yel);outline-offset:2px}
-.progress{pointer-events:auto;display:flex;align-items:flex-end;gap:6px;height:44px;padding:0 6px}
-.progress a{display:block;width:4px;height:14px;background:var(--chrome-fg);opacity:.45}
-.progress a:nth-child(5n+1){height:24px}
-.progress a.cur{background:var(--yel);opacity:1;width:10px;outline:1.5px solid var(--chrome-fg)}
-.progress a:focus-visible{outline:3px solid var(--yel)}
+.card{position:relative;overflow:hidden;flex:none}
+
+/* carousel (LinkedIn) */
+.carousel{position:relative;overflow:hidden}
+.carousel .track{display:flex;transition:transform .9s cubic-bezier(.6,.05,.25,1)}
+.carousel .track>*{flex:none}
+.dots{display:flex;gap:10px;justify-content:center;margin-top:16px}
+.dots i{width:10px;height:10px;border-radius:50%;background:#3A3A37;transition:background .3s}
+.dots i.on{background:var(--yel)}
+
+/* typewriter */
+.type::after{content:"";display:inline-block;width:.06em;height:.9em;margin-left:.06em;background:currentColor;vertical-align:-.08em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* ---------- simulovaný kurzor ---------- */
+.cursor{position:absolute;left:0;top:0;width:34px;height:34px;z-index:50;pointer-events:none;transition:transform 1s cubic-bezier(.5,.05,.25,1),opacity .4s;opacity:0}
+.cursor.on{opacity:1}
+.cursor svg{width:34px;height:34px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
+.cursor .ripple{position:absolute;left:4px;top:4px;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:3px solid var(--yel);opacity:0;transform:scale(.3)}
+.cursor.click .ripple{animation:ripple .6s ease-out}
+@keyframes ripple{0%{opacity:1;transform:scale(.3)}100%{opacity:0;transform:scale(1.6)}}
+
+/* ---------- ovládání: klik myší, šipka se po chvíli schová ---------- */
+body{cursor:default}
+body.idle,body.idle *{cursor:none!important}
+/* vložené ukázky (web, Reels) jsou jen k dívání, klik patří prezentaci */
+.stage iframe{pointer-events:none}
 
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{transition-duration:0s!important;transition-delay:0s!important;animation:none!important}
+  *,*::before,*::after{animation-duration:.01s!important;transition-duration:.01s!important}
 }
 
-/* water: a level that rises, with a rippling surface */
-.gauge{position:relative;overflow:hidden}
-.water{position:absolute;left:0;right:0;bottom:0;height:0;background:var(--yel);transition:height 2.4s cubic-bezier(.2,.6,.2,1) var(--wd,.5s)}
-.is-active .water{height:var(--lvl)}
-.water .surf{position:absolute;left:0;top:-15px;width:200%;height:16px;animation:surf 6s linear infinite}
-.water .surf path{fill:var(--yel)}
-@keyframes surf{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.slide:not(.is-active) .water .surf{animation-play-state:paused}
-@keyframes flow{to{stroke-dashoffset:-400}}
-.slide:not(.is-active) svg path{animation-play-state:paused}
-.under{position:absolute;left:0;right:0;bottom:0}
+/* ---------- v2 · podle kostry ---------- */
 
-/* paper textures */
-.paper-wave{background-color:var(--white);background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22140%22%20height%3D%2226%22%20viewBox%3D%220%200%20140%2026%22%3E%3Cpath%20d%3D%22M0%2013.0%20C%2035.0%201.3%2C%2035.0%201.3%2C%2070.0%2013.0%20S%20105.0%2024.7%2C%20140%2013.0%22%20fill%3D%22none%22%20stroke%3D%22%23C9C8C1%22%20stroke-width%3D%221.4%22/%3E%3C/svg%3E");background-size:140px 26px}
-.yel-wave{background-color:var(--yel);background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22140%22%20height%3D%2226%22%20viewBox%3D%220%200%20140%2026%22%3E%3Cpath%20d%3D%22M0%2013.0%20C%2035.0%201.3%2C%2035.0%201.3%2C%2070.0%2013.0%20S%20105.0%2024.7%2C%20140%2013.0%22%20fill%3D%22none%22%20stroke%3D%22%23B9B700%22%20stroke-width%3D%221.4%22/%3E%3C/svg%3E");background-size:140px 26px}
-.wave-grid{background-color:var(--white);background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22160%22%20height%3D%2240%22%20viewBox%3D%220%200%20160%2040%22%3E%3Cpath%20d%3D%22M0%2020.0%20C%2040.0%202.0%2C%2040.0%202.0%2C%2080.0%2020.0%20S%20120.0%2038.0%2C%20160%2020.0%22%20fill%3D%22none%22%20stroke%3D%22%239C9B94%22%20stroke-width%3D%221.1%22/%3E%3C/svg%3E"),linear-gradient(to right,#9C9B94 1px,transparent 1px),linear-gradient(to right,#D9D8D2 1px,transparent 1px),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22160%22%20height%3D%2220%22%20viewBox%3D%220%200%20160%2020%22%3E%3Cpath%20d%3D%22M0%2010.0%20C%2040.0%201.0%2C%2040.0%201.0%2C%2080.0%2010.0%20S%20120.0%2019.0%2C%20160%2010.0%22%20fill%3D%22none%22%20stroke%3D%22%23D9D8D2%22%20stroke-width%3D%220.8%22/%3E%3C/svg%3E");background-size:160px 40px,128px 100%,32px 100%,160px 20px}
-.yel-grid{background-color:var(--yel);background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22160%22%20height%3D%2240%22%20viewBox%3D%220%200%20160%2040%22%3E%3Cpath%20d%3D%22M0%2020.0%20C%2040.0%202.0%2C%2040.0%202.0%2C%2080.0%2020.0%20S%20120.0%2038.0%2C%20160%2020.0%22%20fill%3D%22none%22%20stroke%3D%22%238F8D00%22%20stroke-width%3D%221.1%22/%3E%3C/svg%3E"),linear-gradient(to right,#8F8D00 1px,transparent 1px),linear-gradient(to right,#C9C700 1px,transparent 1px),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22160%22%20height%3D%2220%22%20viewBox%3D%220%200%20160%2020%22%3E%3Cpath%20d%3D%22M0%2010.0%20C%2040.0%201.0%2C%2040.0%201.0%2C%2080.0%2010.0%20S%20120.0%2019.0%2C%20160%2010.0%22%20fill%3D%22none%22%20stroke%3D%22%23C9C700%22%20stroke-width%3D%220.8%22/%3E%3C/svg%3E");background-size:160px 40px,128px 100%,32px 100%,160px 20px}
+/* celoplošný obrázek mockupu */
+.full{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slide.img{padding:0}
+.slide.img .label{position:absolute;left:48px;top:40px;font-size:22px;background:var(--ink);color:#fff;padding:8px 16px}
+.is-active .full{animation:kenburns 20s ease-in-out infinite alternate}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.04)}}
 
-/* pointer ticks on posts */
-.ticks{position:absolute;left:0;top:0;bottom:0;display:flex;flex-direction:column;justify-content:space-between;padding:24px 0}
-.ticks i{display:block;height:7px;background:var(--yel);border-radius:0 4px 4px 0;width:0;transition:width .4s ease;transition-delay:calc(var(--i) * 50ms + .3s)}
-.is-active .ticks i{width:var(--w)}
-.pointer{position:absolute;left:0;height:7px;background:var(--yel);width:0;transition:width 1s cubic-bezier(.3,.6,.2,1) 1.6s}
-.pointer::after{content:"";position:absolute;right:-12px;top:-9px;width:25px;height:25px;border-radius:50%;background:var(--yel)}
-.is-active .pointer{width:var(--w)}
-.check{font-family:var(--mono);font-size:20px;padding:2px 8px;background:var(--yel);color:var(--ink)}
+/* dva obrázky přecházejí jeden v druhý (carousel ve feedu) */
+.swap{position:absolute;inset:0}
+.swap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.is-active .swap img:last-child{animation:swap 7s ease-in-out infinite}
+@keyframes swap{0%,40%{opacity:0}50%,90%{opacity:1}100%{opacity:0}}
+
+/* lomítka v textu */
+.sl{color:var(--yel);font-weight:300;letter-spacing:.06em}
+.yellow .sl,.white .sl{color:var(--ink)}
+
+/* fotky týmu */
+.portrait{width:420px;height:420px;object-fit:cover;border-radius:50%;display:block}
+
+
+/* zvýrazňovač: žlutá se naleje zleva doprava (jednou), text se přebarví přesně s ní */
+.hl{position:relative;display:inline-block;white-space:nowrap;padding:0 .06em;margin:0 -.03em;color:transparent;
+  background:linear-gradient(90deg,var(--ink) 50%,#fff 50%) 100% 0/200% 100% no-repeat;-webkit-background-clip:text;background-clip:text}
+.hl::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--yel);transform:scaleX(0);transform-origin:left}
+.is-active .hl{animation:hlText 1.4s cubic-bezier(.65,0,.35,1) forwards;animation-delay:var(--d,0s)}
+.is-active .hl::before{animation:hlFill 1.4s cubic-bezier(.65,0,.35,1) forwards;animation-delay:var(--d,0s)}
+@keyframes hlFill{to{transform:scaleX(1)}}
+@keyframes hlText{to{background-position:0 0}}
+.slide p:has(.hl){position:relative;z-index:0}
+
+/* statická fotka bez zoomu */
+.is-active .full.static{animation:none}
+
+/* LinkedIn: posty plynule vyjedou zpoza telefonu a zůstanou */
+.li{position:absolute;inset:0;background:var(--yel)}
+.li img{position:absolute;display:block}
+.li-phone{left:83px;top:80px;width:460px;height:921px;z-index:4}
+.li-post{top:293px;width:397px;height:496px;box-shadow:0 14px 36px rgba(14,14,13,.16);transform:translate3d(var(--from),0,0);will-change:transform;backface-visibility:hidden}
+.is-active .li-post{animation:liOut 2.4s cubic-bezier(.22,1,.36,1) .5s forwards}
+@keyframes liOut{to{transform:translate3d(0,0,0)}}
