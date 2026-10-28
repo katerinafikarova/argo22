@@ -202,7 +202,7 @@ stats.forEach(st=>st.addEventListener("click",e=>{e.preventDefault();st.classLis
 addEventListener("message",e=>{const m=e.data;if(!m||typeof m!=="object"||!("argo22" in m))return;
  if(m.argo22==="reset")stats.forEach(resetStat);
  else if(m.argo22==="fill"&&stats[m.i])fillStat(stats[m.i]);
- else if(m.argo22==="project"){select(m.i);up();}
+ else if(m.argo22==="project"){clearTimeout(window.__pourT);if(water.classList.contains("up")){water.classList.remove("up");window.__pourT=setTimeout(()=>{select(m.i);up();},520);}else{select(m.i);up();}}
  else if(m.argo22==="project-leave"){water.classList.remove("up");}
  else if(m.argo22==="rects"){const box=s=>{const r=s.getBoundingClientRect();return{x:r.left+scrollX,y:r.top+scrollY,w:r.width,h:r.height};};
   const top=document.querySelector(".stats").getBoundingClientRect().top+scrollY;
