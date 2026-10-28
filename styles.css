@@ -243,4 +243,4 @@ body.idle,body.idle *{cursor:none!important}
 
 /* moodboard: volná kompozice, fotky přebarvené do tónů žluté */
 .mood{position:absolute;inset:0;pointer-events:none}
-.mood img{position:absolute;display:block;object-fit:cover;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.mood img{position:absolute;display:block;object-fit:contain;box-shadow:0 18px 40px rgba(0,0,0,.35)}
