@@ -8,8 +8,8 @@ Autoři: Kateřina Fikarová, Matěj Plaňanský. Žádný build, žádné závi
 - `index.html` – všechny slidy, každý je `<section class="slide …" aria-label="…">`; páska a logo jsou vložené jako `<template>`
 - `styles.css` – tokeny (`--yel #F5F500`, `--ink #0E0E0D`), typografie, animace (páska, pruhy, zvýrazňovač, LinkedIn posty)
 - `deck.js` – ovládání, škálování, automatické akce ve slidech (`data-auto`: type, scroll, count, tool, video)
-- `assets/web-prototyp.html` – homepage webu, písmo Outfit z `assets/Outfit.ttf`
-- `assets/` – mockupy, video, písmo Outfit, `web-prototyp.html` (slide 11) a `reels-animace.html` (slide 12)
+- `assets/web-prototyp.html` – homepage webu, písmo Geist, číslice v nadpisech a počítadlech z Outfitu
+- `assets/` – mockupy, video, písma `Geist.ttf` a `Outfit.ttf`, `web-prototyp.html` (slide 11) a `reels-animace.html` (slide 12)
 - `copy/` – samostatný nástroj Měřítko copy, s prezentací nesouvisí
 
 ## Ovládání
@@ -20,6 +20,9 @@ Záložně: šipky, PageUp/PageDown (klikr), mezerník, Home/End, F. Žádné tl
 `index.html#7` otevře 7. slide.
 
 ## Pravidla
+
+- Písmo: Geist (`assets/Geist.ttf`) je hlavní písmo celé prezentace, webu i Reels animace. Outfit je jen doplňkový, a to jen pro číslice (`@font-face 'Argo Digits'` s `unicode-range` 0–9) v nadpisech a velkých číslech (`.h1 .h2 .h3 .idx .num`, `--font-num`). Důvod: jeho oblé dvojky se sklonem sedí k lomítkům pásky. Drobný text je celý v Geistu.
+- Slide 06: pod pruhy poznámka `.proof.note`: plnění = tichý odkaz na vodu (plavba Argó), čárky pásky = měrka.
 
 - Oddělovač v popiscích a hlavičkách je ` / ` a po něm velké písmeno (`Instagram / Stories a Reels`).
 - Nadpisy `.h1`/`.h2` mají proklad 1,08, aby se čárky a háčky nedotýkaly řádku nad sebou.
