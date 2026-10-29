@@ -3,7 +3,7 @@
    Nastavení přehrávání měňte v CONFIG. Obsah slidů je v index.html.
    ========================================================= */
 const CONFIG = {
-  showCursor: true,        // simulovaný kurzor, který „kliká“ ve webu na slidu 11
+  showCursor: true,        // simulovaný kurzor, který „kliká“ ve webu na slidu 12
   webClicksStats: true,    // na slidu s webem kurzor sám klikne na čísla, aby se nalila
   hideMouseAfter: 1800     // v celé obrazovce schovat šipku myši po tolika ms bez pohybu
 };

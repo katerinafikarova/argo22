@@ -253,3 +253,13 @@ body.idle,body.idle *{cursor:none!important}
 
 /* poznámka pod obrazem (slide 06): stejný styl jako důkaz na slidu 04 */
 .proof.note{margin-top:8px}
+
+/* slide 07 „Proč páska“: claim + výřez pásky nahoře, vysvětlení ve dvou sloupcích */
+.why-top{display:grid;grid-template-columns:1fr 760px;gap:80px;align-items:center;margin-top:56px}
+.why-tape{position:relative}
+.why-tape .tape-svg{width:100%;overflow:hidden}
+.why-mark{position:absolute;left:152px;top:calc(100% + 14px);transform:translateX(-50%);font-size:22px;color:var(--mute);white-space:nowrap}  /* pod dvojicí „/\“ před 22 */
+.why-text{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:auto;padding-top:28px;border-top:2px solid var(--line)}
+.why-text .col{gap:18px}
+.why-text p{margin:0;font-size:27px;line-height:1.45;color:#D9D8D2}
+.why-text b{color:var(--white);font-weight:600}
